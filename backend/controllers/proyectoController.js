@@ -1,4 +1,5 @@
 import Proyecto from "../models/Proyecto.js";
+import Tarea from "../models/Tareas.js";
 import Usuario from "../models/Usuario.js";
 
 const obtenerProyectos = async (req, res) => {
@@ -40,7 +41,13 @@ const obtenerProyecto = async (req, res) => {
     const error = new Error("Acción No Válida");
     return res.status(401).json({ msg: error.message });
   }
-  res.json(proyecto);
+
+  // Obtener las tareas del proyecto
+  const tareas = await Tarea.find().where("proyecto").equals(proyecto._id);
+  res.json({
+    proyecto,
+    tareas,
+  });
 };
 
 // Si cambio solo uno, lo demas sigue igual. Solo edita quien lo creo.
@@ -72,16 +79,14 @@ const editarProyecto = async (req, res) => {
 
 const eliminarProyecto = async (req, res) => {
   const { id } = req.params;
-
   const proyecto = await Proyecto.findById(id);
 
   if (!proyecto) {
     const error = new Error("No Encontrado");
     return res.status(404).json({ msg: error.message });
   }
-
   if (proyecto.creador.toString() !== req.usuario._id.toString()) {
-    const error = new Error("Acción No Válida");
+    const error = new Error("Accion no valida");
     return res.status(401).json({ msg: error.message });
   }
 
@@ -97,8 +102,6 @@ const agregarColaborador = async (req, res) => {};
 
 const eliminarColaborador = async (req, res) => {};
 
-const obtenerTareas = async (req, res) => {};
-
 export {
   obtenerProyecto,
   nuevoProyecto,
@@ -107,5 +110,4 @@ export {
   eliminarColaborador,
   eliminarProyecto,
   agregarColaborador,
-  obtenerTareas,
 };
