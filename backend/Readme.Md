@@ -7,6 +7,8 @@
 7) npm i jsonwebtoken (Token)
 8) npm i cors (localhost 3000 y 4000)
 9) Git ignore .env
+10) npm install nodemailer
+
 
 Ultimo Video:  380.
 
