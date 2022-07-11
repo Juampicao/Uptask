@@ -6,7 +6,7 @@
 6) npm i bcrypt (hasheo)
 7) npm i jsonwebtoken (Token)
 8) npm i cors (localhost 3000 y 4000)
-
+9) Git ignore .env
 
 Ultimo Video:  380.
 
